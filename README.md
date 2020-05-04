@@ -17,3 +17,9 @@ wget raw.github.com/jeromedecoster/terraform/master/install.sh \
     --quiet \
     | bash
 ```
+
+##### use `--no-color` to disable color
+
+```bash
+... | bash --no-color
+```
