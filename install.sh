@@ -3,10 +3,12 @@ set -e
 [[ $1 == '--no-color' ]] && COL=0;
 
 nocol() { echo "[$1] ${@:2}"; }
-log()   { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[0;4m${1}\e[0m ${@:2}"; }        # underline $1
-info()  { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[38;5;82;4m${1}\e[0m ${@:2}"; }  # underline $1 in green
-warn()  { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[38;5;208;4m${1}\e[0m ${@:2}"; } # underline $1 in orange
-error() { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[38;5;196;4m${1}\e[0m ${@:2}"; } # underline $1 in red
+log()   { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[30;47m ${1^^} \e[0m ${@:2}"; }        # $1 uppercase background white
+info()  { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[48;5;28m ${1^^} \e[0m ${@:2}"; }      # $1 uppercase background green
+warn()  { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[48;5;202m ${1^^} \e[0m ${@:2}" >&2; } # $1 uppercase background orange
+error() { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[48;5;196m ${1^^} \e[0m ${@:2}" >&2; } # $1 uppercase background red
+
+info install terraform
 
 URL=$(curl --silent https://www.terraform.io/downloads.html \
     | grep --only-matching https://releases.hashicorp.com/terraform/.*linux_amd64.zip \
@@ -21,7 +23,7 @@ VERSION=$(echo $URL \
 [[ -n $(which terraform) && -n $(terraform version | grep $VERSION) ]] \
     && { warn abort terraform $VERSION already installed; exit; }
 
-info install terraform $VERSION
+log version $VERSION
 TEMP=$(mktemp --directory)
 cd $TEMP
 
