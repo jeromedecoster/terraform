@@ -20,7 +20,7 @@ URL=$(curl --silent https://www.terraform.io/downloads.html \
 VERSION=$(echo $URL \
     | sed --expression 's|.*/terraform/||' --expression 's|/.*||')
 
-[[ -n $(which terraform) && -n $(terraform version | grep $VERSION) ]] \
+[[ -n $(which terraform) && -n $(terraform version | head -n 1 | grep $VERSION) ]] \
     && { warn abort terraform $VERSION already installed; exit; }
 
 log version $VERSION
