@@ -3,7 +3,7 @@
 ### install with curl
 
 ```bash
-curl raw.github.com/jeromedecoster/terraform/master/install.sh \
+curl github.com/jeromedecoster/terraform/raw/master/install.sh \
     --location \
     --silent \
     | bash
@@ -12,7 +12,7 @@ curl raw.github.com/jeromedecoster/terraform/master/install.sh \
 ### install with wget
 
 ```bash
-wget raw.github.com/jeromedecoster/terraform/master/install.sh \
+wget github.com/jeromedecoster/terraform/raw/master/install.sh \
     --output-document=- \
     --quiet \
     | bash

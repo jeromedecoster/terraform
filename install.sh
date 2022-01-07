@@ -10,8 +10,9 @@ error() { [[ $COL == 0 ]] && nocol $@ || echo -e "\e[48;5;196m ${1^^} \e[0m ${@:
 
 info install terraform
 
-URL=$(curl --silent https://www.terraform.io/downloads.html \
-    | grep --only-matching https://releases.hashicorp.com/terraform/.*linux_amd64.zip \
+URL=$(curl --silent https://www.terraform.io/downloads \
+    | grep --only-matching https://releases.hashicorp.com/terraform/[0-9.]*/terraform[0-9._]*linux_amd64.zip \
+    | head -n 1 \
     | cat )
 # `| cat` tip from https://stackoverflow.com/a/6550543
 
